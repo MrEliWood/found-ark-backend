@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/chuanw101/found-ark-backend#readme",
   "dependencies": {
+    "@google-cloud/storage": "^6.9.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
