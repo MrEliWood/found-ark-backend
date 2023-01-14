@@ -1,5 +1,4 @@
 runtime: nodejs18
-vm: true
 
 network:
    forwarded_ports:

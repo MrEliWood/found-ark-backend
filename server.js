@@ -18,15 +18,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 const webServer = require('http').Server(app);
-const socketServer = require('http').Server(app);
+
+sequelize.sync({ force: false }).then(() => {
+	webServer.listen(PORT, () => console.log('Now listening to port' + PORT));
+});
+
+// configure socket
+const socketServer = require('http').createServer(app);
+
+socketServer.listen(65080);
 
 const io = require('socket.io')(webServer, {
 	cors: {
 		origins: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com']
 	}
 });
-
-socketServer.listen(65080);
 
 io.on('connection', (socket) => {
 	console.log('Connected to socket.io');
@@ -48,12 +54,4 @@ io.on('connection', (socket) => {
 		console.log('USER DISCONNECTED');
 		socket.leave(id);
 	});
-});
-
-app.get('/', (req, res) => {
-	res.status(200).send('Hello, world!').end();
-});
-
-sequelize.sync({ force: false }).then(() => {
-	webServer.listen(PORT, () => console.log('Now listening to port' + PORT));
 });
