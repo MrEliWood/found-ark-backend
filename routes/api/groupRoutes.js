@@ -101,7 +101,7 @@ router.get('/', async (req, res) => {
 				res.json(groups);
 			}
 		} else {
-			const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+			const tokenData = jwt.verify(token, 'secret');
 			if (req.query?.filter) {
 				const groups = await Group.findAll({
 					include: [
@@ -256,7 +256,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		const token = req.headers?.authorization?.split(' ').pop();
-		const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+		const tokenData = jwt.verify(token, 'secret');
 		const newGroup = await Group.create({
 			creator_char_id: req.body.creator_char_id,
 			region: tokenData.region,
@@ -294,7 +294,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
 	try {
 		const token = req.headers?.authorization?.split(' ').pop();
-		const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+		const tokenData = jwt.verify(token, 'secret');
 		const curGroup = await Group.findByPk(req.params.id, {
 			include: [
 				{
@@ -366,7 +366,7 @@ router.put('/:id', async (req, res) => {
 router.post('/:id/tag/:tag_name', async (req, res) => {
 	try {
 		const token = req.headers?.authorization?.split(' ').pop();
-		const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+		const tokenData = jwt.verify(token, 'secret');
 		const curGroup = await Group.findByPk(req.params.id, {
 			include: [
 				{
@@ -401,7 +401,7 @@ router.post('/:id/tag/:tag_name', async (req, res) => {
 router.delete('/:id/tag/:tag_name', async (req, res) => {
 	try {
 		const token = req.headers?.authorization?.split(' ').pop();
-		const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+		const tokenData = jwt.verify(token, 'secret');
 		const curGroup = await Group.findByPk(req.params.id, {
 			include: [
 				{
@@ -438,7 +438,7 @@ router.delete('/:id/tag/:tag_name', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 	try {
 		const token = req.headers?.authorization?.split(' ').pop();
-		const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+		const tokenData = jwt.verify(token, 'secret');
 		const curGroup = await Group.findByPk(req.params.id, {
 			include: [
 				{
