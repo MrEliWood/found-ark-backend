@@ -21,7 +21,7 @@ const server = require('http').Server(app);
 
 const io = require('socket.io')(server, {
 	cors: {
-		origins: ['http://localhost:3000', 'https://found-ark.herokuapp.com', 'http://found-ark.herokuapp.com']
+		origins: ['http://localhost:3000', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com']
 		//origin: "https://found-ark.herokuapp.com"
 	}
 });
