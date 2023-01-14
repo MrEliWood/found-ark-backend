@@ -3,6 +3,27 @@ const cors = require('cors');
 const routes = require('./routes');
 require('dotenv').config();
 
+// set cors config in gcloud
+const { Storage } = require('@google-cloud/storage');
+const storage = new Storage();
+
+async function configureBucketCors() {
+	await storage.bucket('found-ark-backend.appspot.com').setCorsConfiguration([
+		{
+			maxAgeSeconds: 3600,
+			method: ['GET', 'POST', 'PUT', 'DELETE'],
+			origins: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com'],
+			responseHeader: 'Content-Type'
+		}
+	]);
+
+	console.log(`Bucket ${bucketName} was updated with a CORS config
+        to allow ${method} requests from ${origin} sharing 
+        ${responseHeader} responses across origins`);
+}
+
+configureBucketCors().catch(console.error);
+
 const sequelize = require('./config/connection');
 
 const app = express();
