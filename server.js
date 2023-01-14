@@ -26,13 +26,13 @@ sequelize.sync({ force: false }).then(() => {
 // configure socket
 const socketServer = require('http').createServer(app);
 
-socketServer.listen(65080);
-
-const io = require('socket.io')(webServer, {
+const io = require('socket.io')(socketServer, {
 	cors: {
 		origins: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com']
 	}
 });
+
+socketServer.listen(65080);
 
 io.on('connection', (socket) => {
 	console.log('Connected to socket.io');
