@@ -17,14 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-const webServer = require('http').createServer(app);
-
-sequelize.sync({ force: false }).then(() => {
-	webServer.listen(PORT, () => console.log('Now listening to port' + PORT));
-});
-
-// configure socket
 const socketServer = require('http').Server(app);
+const webServer = require('http').createServer(app);
 
 const io = require('socket.io')(socketServer, {
 	cors: {
@@ -54,4 +48,12 @@ io.on('connection', (socket) => {
 	});
 });
 
+// app.get('/', (req, res) => {
+// 	res.status(200).send('Hello, world!').end();
+// });
+
 socketServer.listen(65080);
+
+sequelize.sync({ force: false }).then(() => {
+	webServer.listen(PORT, () => console.log('Now listening to port' + PORT));
+});
