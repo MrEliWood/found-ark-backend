@@ -17,10 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-const webServer = require('http').Server(app);
 const socketServer = require('http').Server(app);
+const webServer = require('http').createServer(app);
 
-const io = require('socket.io')(webServer, {
+const io = require('socket.io')(socketServer, {
 	cors: {
 		origins: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com']
 	}
@@ -48,9 +48,9 @@ io.on('connection', (socket) => {
 	});
 });
 
-app.get('/', (req, res) => {
-	res.status(200).send('Hello, world!').end();
-});
+// app.get('/', (req, res) => {
+// 	res.status(200).send('Hello, world!').end();
+// });
 
 socketServer.listen(65080);
 

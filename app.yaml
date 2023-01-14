@@ -1,4 +1,10 @@
 runtime: nodejs18
+vm: true
+
+network:
+   forwarded_ports:
+      - 65080
+   instance_tag: websocket
 
 env_variables:
    DB_USER: root
