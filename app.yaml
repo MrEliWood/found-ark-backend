@@ -1,1 +1,7 @@
 runtime: nodejs18
+
+env_variables:
+   DB_USER: 'root'
+   DB_NAME: “foundark_db"
+   DB_PASS: 'password'
+   DB_INSTANCE: 'found-ark-backend:us-west1:foundarkbe'
