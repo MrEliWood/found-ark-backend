@@ -7,12 +7,20 @@ require('dotenv').config();
 const { Storage } = require('@google-cloud/storage');
 const storage = new Storage();
 
+async function removeBucketCors() {
+	await storage.bucket('found-ark-backend.appspot.com').setCorsConfiguration([]);
+
+	console.log(`Removed CORS configuration from bucket 'found-ark-backend.appspot.com'`);
+}
+
+removeBucketCors().catch(console.error);
+
 async function configureBucketCors() {
 	await storage.bucket('found-ark-backend.appspot.com').setCorsConfiguration([
 		{
 			maxAgeSeconds: 3600,
 			method: ['GET', 'POST', 'PUT', 'DELETE'],
-			origins: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com'],
+			origin: ['http://localhost:8080', 'https://found-ark-backend.uw.r.appspot.com', 'http://found-ark-backend.uw.r.appspot.com'],
 			responseHeader: 'Content-Type'
 		}
 	]);
