@@ -25,7 +25,7 @@ const io = require('socket.io')(server, {
 	}
 });
 
-server.listen(65080);
+// server.listen(65080);
 
 io.on('connection', (socket) => {
 	console.log('Connected to socket.io');
