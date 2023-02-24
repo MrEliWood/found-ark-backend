@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 //if filter should be /?filter=filter1&filter=filter2 etc.
 router.get('/', async (req, res) => {
 	try {
-		console.log('TRIED');
 		const token = req.headers?.authorization?.split(' ').pop();
 		if (!token) {
 			if (req.query?.filter) {
